@@ -38,8 +38,9 @@ class ChuckJokes extends React.Component<{}, IState> {
           <button
             type='submit'
             className='add-email'
-          >Add email...
-            </button>
+          >
+            Add email...
+          </button>
         </form>
         <EmailList emails={this.state.emails} />
       </div>

@@ -1,28 +1,25 @@
+import * as _ from 'lodash';
 import * as React from 'react';
 
 class EmailList extends React.Component<{ emails: string[]; }> {
   public render(): JSX.Element[] {
     const { emails } = this.props;
     const emailObjects: object[] = [];
-    // const domainVar = 'dmn';
-    // const nameVar = 'nm';
     emails.map(email => {
       const addressBuffer = email.split('@');
       emailObjects.push({
-        'dmn': addressBuffer[1],
-        'nm': addressBuffer[0],
+        'domain': addressBuffer[1],
+        'name': addressBuffer[0],
       }
       );
+    });
+    const sortedEmails: any[] = _.sortBy(emailObjects, ['domain', 'name']);
+    const newEmails: string[] = [];
+    sortedEmails.forEach(email => {
+      newEmails.push(`${email.name}@${email.domain}`);
     })
-    console.log('before', emailObjects); // tslint:disable-line
-
-    if (emailObjects.length > 1) {
-      const newObjects = emailObjects.sort((a, b): number => a['dmn'] - b['dmn'] || a['nm'] - b['nm']);// tslint:disable-line 
-      console.log('after', newObjects); // tslint:disable-line
-    }
-
     return (
-      emails.map((element: string, index: number) => {
+      newEmails.map((element, index) => {
         return <div className="email-display" key={index}>{element}</div>
       })
     );
