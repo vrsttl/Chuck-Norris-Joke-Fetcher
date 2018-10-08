@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/lodash": "^4.14.116",
+    "@types/node-fetch": "^2.1.2",
     "@types/nodemailer": "^4.6.5",
     "lodash": "^4.17.11",
     "nodemailer": "^4.6.8",
