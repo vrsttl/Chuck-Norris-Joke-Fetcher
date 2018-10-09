@@ -10,6 +10,11 @@ class ChuckJokes extends React.Component<{}, IState> {
   public handleSend(e: React.SyntheticEvent<EventTarget>): void {
     e.preventDefault();
     const currentJoke = this.fetchJoke('http://api.icndb.com/jokes/random');
+    const sendData = {
+      currentJoke: currentJoke,
+      emails: this.state.emails,
+    }
+    this.postData('http://localhost:3000', sendData);
   }
 
   public addEmail(e: React.FormEvent<HTMLFormElement>): void {
@@ -31,6 +36,22 @@ class ChuckJokes extends React.Component<{}, IState> {
         return data.value.joke;
       })
       .catch(error => console.error('Error:', error));//tslint:disable-line
+  }
+
+  private postData(url: string, data: object): object {
+    return fetch(url, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json());
   }
 
   public render(): JSX.Element {
