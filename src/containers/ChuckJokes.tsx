@@ -10,7 +10,6 @@ class ChuckJokes extends React.Component<{}, IState> {
   public async handleSend(e: React.SyntheticEvent<EventTarget>): Promise<string> {
     e.preventDefault();
     const currentJoke: Promise<string> = await this.fetchJoke('http://api.icndb.com/jokes/random');
-    console.log('currentjoke', currentJoke)// tslint:disable-line
     const sendData = {
       currentJoke: { currentJoke },
       emails: this.state.emails,
@@ -38,43 +37,15 @@ class ChuckJokes extends React.Component<{}, IState> {
     }
   }
 
-  private fetchJoke(url: string): any {
-    return fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.value.joke)//tslint:disable-line
-        return data.value.joke;
-      })
-      .catch(error => console.error('Error:', error));//tslint:disable-line
-  }
-
-  private postData(url: string, data: object): Promise<string> {
-    console.log('data', data); //tslint:disable-line
-    return fetch(url, {
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      method: "POST",
-      mode: "cors",
-    })
-      .then(response => response.json())
-      .then(resp => {
-        console.log('response', resp)//tslint:disable-line
-        return resp;
-      })
-      .catch(err => err);
-  }
-
   public render(): JSX.Element {
     return (
       <div>
-        {/*   tslint:disable-next-line  */}
+        {/*   tslint:disable-next-line jsx-no-lambda */}
         <form onSubmit={e => this.addEmail(e)}>
           <input
             type='email'
             className='email-input'
-            onChange={e => this.setState({ currentEmail: e.target.value })} // tslint:disable-line
+            onChange={e => this.setState({ currentEmail: e.target.value })} // tslint:disable-line jsx-no-lambda
             value={this.state.currentEmail}
             placeholder='Enter your email address here...'
           />
@@ -90,11 +61,37 @@ class ChuckJokes extends React.Component<{}, IState> {
         />
         <button
           type='submit'
-          onClick={e => this.handleSend(e)}//tslint:disable-line
+          onClick={e => this.handleSend(e)} // tslint:disable-line jsx-no-lambda
         >Get a Chuck Norris joke sent to all these emails if you dare.
           </button>
       </div >
     )
+  }
+
+
+  private fetchJoke(url: string): any {
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        return data.value.joke;
+      })
+      .catch(error => console.error('Error:', error));//tslint:disable-line
+  }
+
+  private postData(url: string, data: { emails: string[], currentJoke: any }): Promise<string> {
+    return fetch(url, {
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      method: "POST",
+      mode: "cors",
+    })
+      .then(response => response.json())
+      .then(resp => {
+        return resp;
+      })
+      .catch(err => err);
   }
 }
 
