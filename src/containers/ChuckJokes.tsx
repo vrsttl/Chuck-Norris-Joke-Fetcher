@@ -31,8 +31,8 @@ class ChuckJokes extends React.Component<{}, IState> {
   }
 
   public addEmail(e: React.FormEvent<HTMLFormElement>): void {
-    if (this.state.currentEmail.length > 0) {
-      e.preventDefault();
+    e.preventDefault();
+    if (this.state.currentEmail.length) {
       this.setState({
         currentEmail: '',
         emails: [
