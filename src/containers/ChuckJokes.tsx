@@ -31,13 +31,14 @@ class ChuckJokes extends React.Component<{}, IState> {
   }
 
   public addEmail(e: React.FormEvent<HTMLFormElement>): void {
+    const { currentEmail } = this.state;
     e.preventDefault();
-    if (this.state.currentEmail.length) {
+    if (currentEmail.length) {
       this.setState({
         currentEmail: '',
         emails: [
           ...this.state.emails,
-          this.state.currentEmail
+          currentEmail,
         ],
       })
     } else {
