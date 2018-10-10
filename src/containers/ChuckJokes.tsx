@@ -12,21 +12,30 @@ class ChuckJokes extends React.Component<{}, IState> {
     const currentJoke: Promise<string> = await this.fetchJoke('http://api.icndb.com/jokes/random');
     console.log('currentjoke', currentJoke)// tslint:disable-line
     const sendData = {
-      currentJoke: {currentJoke},
+      currentJoke: { currentJoke },
       emails: this.state.emails,
     }
+    this.setState({
+      ...this.state,
+      emails: [],
+    })
+    alert('A Chuck Norris joke has been sent to the specified email addresses.');
     return this.postData('http://localhost:3030', sendData);
   }
 
   public addEmail(e: React.FormEvent<HTMLFormElement>): void {
-    e.preventDefault();
-    this.setState({
-      currentEmail: '',
-      emails: [
-        ...this.state.emails,
-        this.state.currentEmail
-      ],
-    })
+    if (this.state.currentEmail.length > 0) {
+      e.preventDefault();
+      this.setState({
+        currentEmail: '',
+        emails: [
+          ...this.state.emails,
+          this.state.currentEmail
+        ],
+      })
+    } else {
+      alert('Please add an email address before trying to save it :)');
+    }
   }
 
   private fetchJoke(url: string): any {
@@ -76,7 +85,9 @@ class ChuckJokes extends React.Component<{}, IState> {
             Add email...
           </button>
         </form>
-        <EmailList emails={this.state.emails} />
+        <EmailList
+          emails={this.state.emails}
+        />
         <button
           type='submit'
           onClick={e => this.handleSend(e)}//tslint:disable-line
