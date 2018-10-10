@@ -10,18 +10,24 @@ class ChuckJokes extends React.Component<{}, IState> {
 
   public async handleSend(e: React.SyntheticEvent<EventTarget>): Promise<string> {
     e.preventDefault();
-    const jokeAPI: string = 'http://api.icndb.com/jokes/random';
-    const currentJoke: Promise<string> = await this.fetchJoke(jokeAPI);
-    const sendData: { currentJoke: object, emails: string[] } = {
-      currentJoke: { currentJoke },
-      emails: this.state.emails,
+    const { emails } = this.state;
+    if (emails.length) {
+      const jokeAPI: string = 'http://api.icndb.com/jokes/random';
+      const currentJoke: Promise<string> = await this.fetchJoke(jokeAPI);
+      const sendData: { currentJoke: object, emails: string[] } = {
+        currentJoke: { currentJoke },
+        emails,
+      }
+      this.setState({
+        ...this.state,
+        emails: [],
+      })
+      alert('A Chuck Norris joke has been sent to the specified email addresses.');
+      return this.postData('http://localhost:3030', sendData);
+    } else {
+      alert('There\'s no email to send the joke to.');
+      return '';
     }
-    this.setState({
-      ...this.state,
-      emails: [],
-    })
-    alert('A Chuck Norris joke has been sent to the specified email addresses.');
-    return this.postData('http://localhost:3030', sendData);
   }
 
   public addEmail(e: React.FormEvent<HTMLFormElement>): void {
