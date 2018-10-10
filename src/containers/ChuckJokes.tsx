@@ -7,14 +7,14 @@ class ChuckJokes extends React.Component<{}, IState> {
     emails: [],
   };
 
-  public handleSend(e: React.SyntheticEvent<EventTarget>): void {
+  public async handleSend(e: React.SyntheticEvent<EventTarget>): Promise<string> {
     e.preventDefault();
-    const currentJoke = this.fetchJoke('http://api.icndb.com/jokes/random');
+    const currentJoke = await this.fetchJoke('http://api.icndb.com/jokes/random');
     const sendData = {
       currentJoke: (`${currentJoke}`),
       emails: this.state.emails,
     }
-    this.postData('http://localhost:3000', sendData);
+    return this.postData('http://localhost:3030', sendData);
   }
 
   public addEmail(e: React.FormEvent<HTMLFormElement>): void {
@@ -38,7 +38,8 @@ class ChuckJokes extends React.Component<{}, IState> {
       .catch(error => console.error('Error:', error));//tslint:disable-line
   }
 
-  private postData(url: string, data: object): object {
+  private postData(url: string, data: object): Promise<string> {
+    console.log('data', data); //tslint:disable-line
     return fetch(url, {
       body: JSON.stringify(data),
       cache: "no-cache",
@@ -47,16 +48,15 @@ class ChuckJokes extends React.Component<{}, IState> {
         "Content-Type": "application/json; charset=utf-8",
       },
       method: "POST",
-      mode: "cors",
+      mode: "no-cors",
       redirect: "follow",
       referrer: "no-referrer",
     })
-      .then(response => response.json());
+      .then(response => response.json())
+      .catch(err => err);
   }
 
   public render(): JSX.Element {
-    {/*   tslint:disable-next-line  */ }
-    console.log(this.state);
     return (
       <div>
         {/*   tslint:disable-next-line  */}
