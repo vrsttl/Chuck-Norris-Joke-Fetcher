@@ -9,8 +9,9 @@ class ChuckJokes extends React.Component<{}, IState> {
 
   public async handleSend(e: React.SyntheticEvent<EventTarget>): Promise<string> {
     e.preventDefault();
-    const currentJoke: Promise<string> = await this.fetchJoke('http://api.icndb.com/jokes/random');
-    const sendData = {
+    const jokeAPI: string = 'http://api.icndb.com/jokes/random';
+    const currentJoke: Promise<string> = await this.fetchJoke(jokeAPI);
+    const sendData: { currentJoke: object, emails: string[] } = {
       currentJoke: { currentJoke },
       emails: this.state.emails,
     }
@@ -67,7 +68,6 @@ class ChuckJokes extends React.Component<{}, IState> {
       </div >
     )
   }
-
 
   private fetchJoke(url: string): any {
     return fetch(url)
