@@ -9,7 +9,8 @@ class ChuckJokes extends React.Component<{}, IState> {
 
   public async handleSend(e: React.SyntheticEvent<EventTarget>): Promise<string> {
     e.preventDefault();
-    const currentJoke = await this.fetchJoke('http://api.icndb.com/jokes/random');
+    const currentJoke: Promise<string> = await this.fetchJoke('http://api.icndb.com/jokes/random');
+    console.log('currentjoke', currentJoke)// tslint:disable-line
     const sendData = {
       currentJoke: (`${currentJoke}`),
       emails: this.state.emails,
@@ -53,6 +54,10 @@ class ChuckJokes extends React.Component<{}, IState> {
       referrer: "no-referrer",
     })
       .then(response => response.json())
+      .then(resp => {
+        console.log('response', resp)//tslint:disable-line
+        return resp;
+      })
       .catch(err => err);
   }
 
