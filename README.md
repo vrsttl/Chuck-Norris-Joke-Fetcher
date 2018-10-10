@@ -15,3 +15,9 @@ I could not create an SFC from EmailList, it seemed to not be able to handle the
 Otherwise, the application works as expected. Please note that the emails are mocked and can be accessed on ethereal.email with the login/pass in the backend code.
 
 I have submitted the code for review to multiple programmers and as soon as I get feedback, I'll get to refactoring what might be clunky.
+
+# Re: ts-lint:disable-line no lambda:
+
+https://github.com/palantir/tslint-react/issues/96
+
+I couldn't figure out a way to circumvent this issue. I doubt that lambda referencing reduces performance at this scale, so I'll just leave that be for now.
