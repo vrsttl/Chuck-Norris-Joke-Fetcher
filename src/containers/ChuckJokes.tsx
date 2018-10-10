@@ -11,7 +11,7 @@ class ChuckJokes extends React.Component<{}, IState> {
     e.preventDefault();
     const currentJoke = this.fetchJoke('http://api.icndb.com/jokes/random');
     const sendData = {
-      currentJoke: currentJoke,
+      currentJoke: (`${currentJoke}`),
       emails: this.state.emails,
     }
     this.postData('http://localhost:3000', sendData);
@@ -40,16 +40,16 @@ class ChuckJokes extends React.Component<{}, IState> {
 
   private postData(url: string, data: object): object {
     return fetch(url, {
-      method: "POST",
-      mode: "cors",
+      body: JSON.stringify(data),
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
+      method: "POST",
+      mode: "cors",
       redirect: "follow",
       referrer: "no-referrer",
-      body: JSON.stringify(data),
     })
       .then(response => response.json());
   }
