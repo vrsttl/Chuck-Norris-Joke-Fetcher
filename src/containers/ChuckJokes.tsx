@@ -1,5 +1,6 @@
 import * as React from 'react';
 import EmailList from '../components/EmailList';
+import '../styles/ChuckJokes.css';
 
 class ChuckJokes extends React.Component<{}, IState> {
   public state = {
@@ -40,9 +41,9 @@ class ChuckJokes extends React.Component<{}, IState> {
 
   public render(): JSX.Element {
     return (
-      <div>
+      <div className="wrapper">
         {/*   tslint:disable-next-line jsx-no-lambda */}
-        <form onSubmit={e => this.addEmail(e)}>
+        <form className="email-form" onSubmit={e => this.addEmail(e)}>
           <input
             type='email'
             className='email-input'
@@ -61,6 +62,7 @@ class ChuckJokes extends React.Component<{}, IState> {
           emails={this.state.emails}
         />
         <button
+          className="send-button"
           type='submit'
           onClick={e => this.handleSend(e)} // tslint:disable-line jsx-no-lambda
         >Get a Chuck Norris joke sent to all these emails if you dare.
