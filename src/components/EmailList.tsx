@@ -4,7 +4,7 @@ import * as React from 'react';
 class EmailList extends React.Component<{ emails: string[]; }> {
   public render(): JSX.Element | JSX.Element[] {
     const { emails } = this.props;
-    const emailObjects: object[] = [];
+    const emailObjects: Array<{ domain: string, name: string }> = [];
     emails.map(email => {
       const addressBuffer = email.split('@');
       emailObjects.push({
@@ -13,7 +13,7 @@ class EmailList extends React.Component<{ emails: string[]; }> {
       }
       );
     });
-    const sortedEmails: any[] = _.sortBy(emailObjects, ['domain', 'name']);
+    const sortedEmails: Array<{ domain: string, name: string }> = _.sortBy(emailObjects, ['domain', 'name']);
     const newEmails: string[] = [];
     sortedEmails.forEach(email => {
       newEmails.push(`${email.name}@${email.domain}`);

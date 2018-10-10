@@ -12,7 +12,7 @@ class ChuckJokes extends React.Component<{}, IState> {
     const currentJoke: Promise<string> = await this.fetchJoke('http://api.icndb.com/jokes/random');
     console.log('currentjoke', currentJoke)// tslint:disable-line
     const sendData = {
-      currentJoke: (`${currentJoke}`),
+      currentJoke: {currentJoke},
       emails: this.state.emails,
     }
     return this.postData('http://localhost:3030', sendData);
@@ -30,7 +30,7 @@ class ChuckJokes extends React.Component<{}, IState> {
   }
 
   private fetchJoke(url: string): any {
-    fetch(url)
+    return fetch(url)
       .then(response => response.json())
       .then(data => {
         console.log(data.value.joke)//tslint:disable-line
@@ -43,15 +43,11 @@ class ChuckJokes extends React.Component<{}, IState> {
     console.log('data', data); //tslint:disable-line
     return fetch(url, {
       body: JSON.stringify(data),
-      cache: "no-cache",
-      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
       method: "POST",
-      mode: "no-cors",
-      redirect: "follow",
-      referrer: "no-referrer",
+      mode: "cors",
     })
       .then(response => response.json())
       .then(resp => {
