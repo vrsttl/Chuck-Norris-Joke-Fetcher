@@ -18,16 +18,18 @@ const EmailList: React.SFC<{ emails: string[]; }> = props => {
     newEmails.push(`${email.name}@${email.domain}`);
   })
 
-  return (<div className="email-cont">
-    {newEmails.length < 1 ? <h1 className="nodata-display">No email addresses given!</h1> :
-      newEmails.map((element, index) => {
-        return <div
-          className="email-display"
-          key={index}>{element}
-        </div>
-      }
-      )}
-  </div>
+  return (
+    <div className="email-cont">
+      {newEmails.length < 1 ?
+        <h1 className="nodata-display">No email addresses given!</h1> :
+        newEmails.map((element, index) => {
+          return <div
+            className="email-display"
+            key={index}>{element}
+          </div>
+        }
+        )}
+    </div>
   );
 }
 
