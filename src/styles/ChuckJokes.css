@@ -59,6 +59,18 @@ button {
   bottom: 50px;
 }
 
+.email-cont {
+  width: 600px;
+  height: 800px;
+  background: lightgray;
+  border-radius: 8px;
+  box-shadow: 2px 4px 6px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+}
+
 .email-display {
   display: flex;
   width: 65%;
@@ -68,6 +80,12 @@ button {
   background: yellowgreen;
   border-radius: 2px;
   box-shadow: 1px 1px 1px rgb(108, 134, 56);
+  margin-top: 8px;
+}
+
+.nodata-display {
+  width: 100%;
+  height: 70px;
   margin-top: 8px;
 }
 
