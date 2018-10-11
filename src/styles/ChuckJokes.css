@@ -21,6 +21,7 @@ html {
 }
 
 .wrapper {
+  margin-top: 30px;
   width: 600px;
   height: 800px;
   background: lightgray;
@@ -62,9 +63,6 @@ button {
 .email-cont {
   width: 600px;
   height: 800px;
-  background: lightgray;
-  border-radius: 8px;
-  box-shadow: 2px 4px 6px;
   display: flex;
   flex-flow: column;
   align-items: center;
