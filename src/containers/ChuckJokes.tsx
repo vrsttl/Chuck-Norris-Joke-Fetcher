@@ -22,8 +22,14 @@ class ChuckJokes extends React.Component<{}, IState> {
         ...this.state,
         emails: [],
       })
-      alert('A Chuck Norris joke has been sent to the specified email addresses.');
-      return this.postData('http://localhost:3030', sendData);
+      const resp: any = await this.postData('http://localhost:3030', sendData);
+      if (resp.result === 'OK') {
+        alert('A Chuck Norris joke has been sent to the specified email addresses.');
+        return resp;
+      } else {
+        alert('Something went wrong. Please try starting the server.');
+        return '';
+      }
     } else {
       alert('There\'s no email to send the joke to.');
       return '';
