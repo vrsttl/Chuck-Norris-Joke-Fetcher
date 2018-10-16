@@ -15,7 +15,7 @@ class ChuckJokes extends React.Component<{}, IState> {
       const jokeAPI: string = 'http://api.icndb.com/jokes/random';
       const currentJoke: Promise<string> = await this.fetchJoke(jokeAPI);
       const sendData: { currentJoke: object, emails: string[] } = {
-        currentJoke,
+        currentJoke: { currentJoke },
         emails,
       }
       this.setState({
