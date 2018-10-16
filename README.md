@@ -14,6 +14,10 @@ EDIT: backend .env now works
 
 ### SOLVED ### I could not create an SFC from EmailList, it seemed to not be able to handle the varying types of returns.
 
+I tried to narrow down the return types of postData in handleSend to use direct error type referencing instead of any, but couldn't figure out what to do with the returns. If I add an interface to handle the error case types and set the return value to string | Interface, then {result: "OK"} in the response is not accessible for referencing in the alert() handling branch so it pops the wrong alert(), informing the user that something went wrong and still proceeds with sending out the emails. See the issue here:
+
+https://github.com/Microsoft/TypeScript/issues/7588#issuecomment-233960618
+
 Otherwise, the application works as expected. Please note that the emails are mocked and can be accessed on ethereal.email with the login/pass in the backend code.
 
 I have submitted the code for review to multiple programmers and as soon as I get feedback, I'll get to refactoring what might be clunky.
