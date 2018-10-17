@@ -14,9 +14,14 @@ EDIT: backend .env now works
 
 ### SOLVED ### I could not create an SFC from EmailList, it seemed to not be able to handle the varying types of returns.
 
-I tried to narrow down the return types of postData in handleSend to use direct error type referencing instead of any, but couldn't figure out what to do with the returns. If I add an interface to handle the error case types and set the return value to string | Interface, then {result: "OK"} in the response is not accessible for referencing in the alert() handling branch so it pops the wrong alert(), informing the user that something went wrong and still proceeds with sending out the emails. See the issue here:
+I tried to narrow down the return types of postData in handleSend to use direct error type referencing instead of any, but couldn't figure out what to do with the returns. If I add an interface to handle the error case types and set the return value to string | Interface, then {result: "OK"} in the response is not accessible for referencing in the alert() handling branch so it pops the wrong alert(), informing the user that something went wrong and still proceeds with sending out the emails.
+
+Also, if I try to return an object with shape {result: string} it doesn't work. I read a bit into this and it seems that using any as a return type is acceptable in this case, as objects as a type in TS are restricted to their constructors and thus if extended they can't reference anything that's not in their constructors. If there's a better practice regarding this, please let me know.
+
+See the issue here:
 
 https://github.com/Microsoft/TypeScript/issues/7588#issuecomment-233960618
+https://stackoverflow.com/questions/18961203/any-vs-object
 
 Otherwise, the application works as expected. Please note that the emails are mocked and can be accessed on ethereal.email with the login/pass in the backend code.
 
